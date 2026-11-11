@@ -61,7 +61,7 @@
 
 <script>
 // Passcode is stored as a SHA-256 hash only — the code itself is never in this file.
-// 42690d363b0bae9de5be386d70ced413e5a9a8419ea11671ffbfacfea8b81098 gets replaced at deploy time with the hash of Gabe's chosen code.
+// "__PASSCODE_HASH__" is the unset placeholder; it gets replaced at deploy time with the hash of Gabe's chosen code.
 const PASS_HASH = "42690d363b0bae9de5be386d70ced413e5a9a8419ea11671ffbfacfea8b81098";
 
 async function sha256(text) {
@@ -84,7 +84,7 @@ async function tryUnlock() {
   const err = document.getElementById("err");
   const code = input.value.trim();
   if (!code) return;
-  if (PASS_HASH === "42690d363b0bae9de5be386d70ced413e5a9a8419ea11671ffbfacfea8b81098") {
+  if (PASS_HASH === "__PASSCODE_HASH__") {
     err.textContent = "Passcode not set yet — this is a preview build.";
     err.style.display = "block";
     return;
@@ -103,7 +103,7 @@ async function tryUnlock() {
 document.getElementById("unlock").addEventListener("click", tryUnlock);
 document.getElementById("code").addEventListener("keydown", e => { if (e.key === "Enter") tryUnlock(); });
 document.getElementById("lockBtn").addEventListener("click", showGate);
-if (sessionStorage.getItem("myapps-unlocked") === "1" && PASS_HASH !== "42690d363b0bae9de5be386d70ced413e5a9a8419ea11671ffbfacfea8b81098") showApps();
+if (sessionStorage.getItem("myapps-unlocked") === "1" && PASS_HASH !== "__PASSCODE_HASH__") showApps();
 </script>
 </body>
 </html>
